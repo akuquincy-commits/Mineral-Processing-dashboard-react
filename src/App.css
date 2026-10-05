@@ -1,0 +1,51 @@
+:root{
+  /* Backgorunds */
+  --bg-main: #0b1120;
+  --bg-cart: #111827;
+  --bg-card-hover: #1f2937;
+
+  /* Text */
+  --text-primary: #f9fafb;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+
+  /* Accent Colors */
+  --accent-green: #22c55e;
+  --accent-blue: #3b82f6;
+  --accent-amber: #f59e0b;
+  --accent-red: #ef4444;
+  --accent-purple: #a855f7;
+
+  /* borders */
+  --border-color: #1f2937;
+
+  /* status colors */
+  --status-good: #22c55e;
+  --status-warning: #f59e0b;
+  --status-danger: #ef4444;
+}
+.head{
+    width: 100%;
+    height: auto;
+    padding: 5px;
+    background-color: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.head img{
+    width: auto;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.primary-text{
+  color: var(--text-primary);
+  font-size: 2rem;
+}
+.secondary-text{
+    color: var(--text-secondary)
+}
+.time{
+    color: var(--text-secondary)
+}
