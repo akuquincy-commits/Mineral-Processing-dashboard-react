@@ -1,0 +1,27 @@
+{
+  "current": {
+    "timestamp": "2026-10-05T03:55:00Z",
+    "throughput": 1025,
+    "recovery": 91.4,
+    "headGrade": 1.85,
+    "tailingsGrade": 0.24,
+    "reagentConsumption": 185,
+    "powerUsage": 12.6,
+    "pH": 10.2,
+    "status": "Running"
+  },
+  "history": [
+    { "time": "08:00", "throughput": 980, "recovery": 90.1, "headGrade": 1.72, "tailingsGrade": 0.27 },
+    { "time": "09:00", "throughput": 1010, "recovery": 90.8, "headGrade": 1.78, "tailingsGrade": 0.25 },
+    { "time": "10:00", "throughput": 1035, "recovery": 91.2, "headGrade": 1.81, "tailingsGrade": 0.24 },
+    { "time": "11:00", "throughput": 1025, "recovery": 91.4, "headGrade": 1.85, "tailingsGrade": 0.24 },
+    { "time": "12:00", "throughput": 1040, "recovery": 91.7, "headGrade": 1.89, "tailingsGrade": 0.23 },
+    { "time": "13:00", "throughput": 1015, "recovery": 91.1, "headGrade": 1.83, "tailingsGrade": 0.25 }
+  ],
+  "processStages": [
+    { "name": "Crushing", "status": "Normal", "efficiency": 96 },
+    { "name": "Grinding", "status": "Normal", "efficiency": 94 },
+    { "name": "Flotation", "status": "Normal", "efficiency": 91 },
+    { "name": "Concentrate", "status": "Normal", "efficiency": 98 }
+  ]
+}
