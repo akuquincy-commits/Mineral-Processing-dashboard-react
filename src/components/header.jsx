@@ -21,18 +21,18 @@ export function Header() {
 
   return (
     <div className="head">
-      <div>
+      <div className="first-section">
         <img src={reactLogo} alt="Site logo" />
         <div>
           <p className="primary-text">Ahafo Processing Plant</p>
           <p className="secondary-text">Mineral Operation Plant Dashboard</p>
         </div>
       </div>
-      <div className="time-btn">
-        <button>{/* put refresh logo here */}</button>
+      <div className="time-area">
+        <button>O{/* put refresh logo here */}</button>
         <p>
           <span className="time">{`${time}`} </span>
-          <span>Time in GMT</span>
+          <span className="muted-text">Time in GMT</span>
         </p>
       </div>
     </div>

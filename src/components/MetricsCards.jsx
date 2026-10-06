@@ -18,6 +18,8 @@ export function MetricsCard() {
     fetchData();
   }, []);
 
+  
+
   return (
     <div className="metrics-cards">
       <div className="card">
@@ -27,12 +29,12 @@ export function MetricsCard() {
         </div>
         <div>
           <div className="quantity">
-            {data ? `${data.throughput}` : 'loading...'}
+            {data ? `${data.throughput} `: 'loading...'} <span>tph</span>
           </div>
           <div className="percentage-change">
             <span>
                 3%
-                {/* percentage change goes here */}
+                {/* percentage change goes here */}  
             </span>
             <span>
                 vs last 24h
@@ -51,7 +53,7 @@ export function MetricsCard() {
         </div>
         <div>
           <div className="quantity">
-            {data ? `${data.recovery}` : 'loading...'}
+            {data ? `${data.recovery}` : 'loading...'} <span>%</span>
           </div>
           <div className="percentage-change">
             <span>
@@ -75,7 +77,7 @@ export function MetricsCard() {
         </div>
         <div>
           <div className="quantity">
-            {data ? `${data.headGrade}` : 'loading...'}
+            {data ? `${data.headGrade}`: 'loading...'} <span>g/t</span>
           </div>
           <div className="percentage-change">
             <span>
@@ -99,7 +101,7 @@ export function MetricsCard() {
         </div>
         <div>
           <div className="quantity">
-            {data ? `${data.tailingsGrade}` : 'loading...'}
+            {data ? `${data.tailingsGrade}` : 'loading...'} <span>g/t</span>
           </div>
           <div className="percentage-change">
             <span>
@@ -123,7 +125,7 @@ export function MetricsCard() {
         </div>
         <div>
           <div className="quantity">
-            {data ? `${data.powerUsage}` : 'loading...'}
+            {data ? `${data.powerUsage}`  : 'loading...'} <span>Mwh</span>
           </div>
           <div className="percentage-change">
             <span>
