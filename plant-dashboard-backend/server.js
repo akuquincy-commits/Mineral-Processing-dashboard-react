@@ -70,9 +70,9 @@ app.get('/api/plant/live', (req, res) => {
     pH: Number((data.current.pH + variation() * 0.1).toFixed(2))
   };
 
-  setTimeout(() => {
+ 
     res.json(liveData);
-  }, 5000)
+  
   
 });
 
