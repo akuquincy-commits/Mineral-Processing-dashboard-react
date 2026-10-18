@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   LineElement,
   PointElement,
@@ -8,6 +9,7 @@ import {
   Tooltip,
   defaults,
 } from "chart.js";
+import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 
 ChartJS.register(
@@ -19,7 +21,7 @@ ChartJS.register(
   Legend,
 );
 
-defaults.maintainAspectRatio = false;
+defaults.aspectRatio = false;
 defaults.responsive = true;
 
 // // defaults.plugins.title.display = true;
@@ -27,26 +29,42 @@ defaults.responsive = true;
 // defaults.plugins.title.font.size = 20;
 // defaults.plugins.title.color = "black";
 
-
 export function ChartSection() {
-  const chartData = {
-    labels: ["A", "B", "C"],
+  const [chartDataState, setChartDataState] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("/api/plant/history");
+        setChartDataState(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const chartDataThroughput = {
+    labels: chartDataState.map((item) => item.time),
     datasets: [
       {
-        label: "revenue",
-        data: [200, 150, 400],
+        label: "Throughput",
+        data: chartDataState.map((item) => item.throughput),
         backgroundColor: ["red", "blue", "green"],
-        borderColor: "blue",
-        borderWidth: 1,
         borderRadius: 5,
         Color: ["blue", "green", "red"],
       },
+    ],
+  };
+  const chartDataRecovery = {
+    labels: chartDataState.map((item) => item.time),
+    datasets: [
       {
-        label: "cost",
-        data: [320, 120, 390],
+        label: "recovery",
+        data: chartDataState.map((item) => item.recovery),
         backgroundColor: ["red", "blue", "green"],
         borderRadius: 5,
-        Color: ["blue", "green", "red"], 
+        Color: ["blue", "green", "red"],
       },
     ],
   };
@@ -60,8 +78,17 @@ export function ChartSection() {
           <option value="week">A Week</option>
         </select>
       </div>
-
-      <Line id="mineral-recovery-chart" data={chartData} />
+      <div className="charts">
+        <div className="chart-card">
+          <Line
+            id="mineral-recovery-chart-throughput"
+            data={chartDataThroughput}
+          />
+        </div>
+        <div className="chart-card">
+          <Line id="mineral-recovery-chart-recovery" data={chartDataRecovery} />
+        </div>
+      </div>
     </div>
   );
 }

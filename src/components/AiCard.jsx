@@ -1,3 +1,5 @@
+import {  ArrowRight } from "lucide-react";
+
 export function AiCard() {
   return (
     <div className="ai-card">
@@ -12,7 +14,7 @@ export function AiCard() {
         <span>Lorem.</span>
       </p>
       <button>
-        View Full Analysis
+        <span>View Full Analysis</span>   <ArrowRight id="right-arrow"/>
       </button>
     </div>
   );

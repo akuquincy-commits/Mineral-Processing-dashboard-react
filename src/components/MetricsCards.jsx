@@ -1,145 +1,169 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import reactLogo from "../assets/react.svg"
+import { useEffect, useState, useRef } from "react";
+import throughputIcon from "../assets/metric-throughput.svg";
+import recoveryIcon from "../assets/metric-recovery.svg";
+import gradeIcon from "../assets/metric-grade.svg";
+import tailingsIcon from "../assets/metric-tailings.svg";
+import powerIcon from "../assets/metric-power.svg";
 
 export function MetricsCard() {
   const [data, setData] = useState(null);
+  const [change, setChange] = useState(null);
+  const previousRef = useRef(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchAndCompare = async () => {
       try {
         const response = await axios.get("/api/plant/live");
-        setData(response.data);
-        console.log(data);
+        const currentData = response.data;
+        setData(currentData);
+
+        const previousThroughput = previousRef.current?.throughput;
+        if (
+          Number.isFinite(currentData.throughput) &&
+          Number.isFinite(previousThroughput) &&
+          previousThroughput !== 0
+        ) {
+          const percentChange =
+            ((currentData.throughput - previousThroughput) /
+              previousThroughput) *
+            100;
+          setChange(percentChange);
+        } else {
+          setChange(null);
+        }
+
+        previousRef.current = currentData;
       } catch (err) {
         console.error(err);
       }
     };
-    fetchData();
-  }, []);
+    fetchAndCompare();
+    const interval = setInterval(fetchAndCompare, 10000);
 
-  
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="metrics-cards">
       <div className="card">
         <div className="card-head">
-          <img src={reactLogo} alt="throughput logo" />
+          <img src={throughputIcon} alt="" />
           <p>Throughput</p>
         </div>
         <div>
           <div className="quantity">
-            {data ? `${data.throughput} `: 'loading...'} <span>tph</span>
+            {data ? (
+              `${data.throughput} `
+            ) : (
+              <span className="loading">Loading...</span>
+            )}{" "}
+            <span>tph</span>
           </div>
           <div className="percentage-change">
-            <span>
-                3%
-                {/* percentage change goes here */}  
-            </span>
-            <span>
-                vs last 24h
-            </span>
+            {change === null ? (
+              <span>—</span>
+            ) : change < 0 ? (
+              <span className="percent-red">{change.toFixed(1)}%</span>
+            ) : change > 0 ? (
+              <span className="percent-green">+{change.toFixed(1)}%</span>
+            ) : (
+              <span>{change.toFixed(1)}%</span>
+            )}
+            <span> vs previous reading</span>
           </div>
         </div>
         <div className="current-state">
-            critical
-            {/* current state goes here */}
+          critical
+          {/* current state goes here */}
         </div>
       </div>
       <div className="card">
         <div className="card-head">
-          <img src={reactLogo} alt="recovery logo" />
+          <img src={recoveryIcon} alt="" />
           <p>Recovery</p>
         </div>
         <div>
           <div className="quantity">
-            {data ? `${data.recovery}` : 'loading...'} <span>%</span>
+            {data ? `${data.recovery}` : "loading..."} <span>%</span>
           </div>
           <div className="percentage-change">
             <span>
-                -2%
-                {/* percentage change goes here */}
+              -2%
+              {/* percentage change goes here */}
             </span>
-            <span>
-                vs last 24h
-            </span>
+            <span>vs last 27s</span>
           </div>
         </div>
         <div className="current-state">
-            warning
-            {/* current state goes here */}
+          warning
+          {/* current state goes here */}
         </div>
       </div>
       <div className="card">
         <div className="card-head">
-          <img src={reactLogo} alt="headGrade logo" />
+          <img src={gradeIcon} alt="" />
           <p>Head Grade</p>
         </div>
         <div>
           <div className="quantity">
-            {data ? `${data.headGrade}`: 'loading...'} <span>g/t</span>
+            {data ? `${data.headGrade}` : "loading..."} <span>g/t</span>
           </div>
           <div className="percentage-change">
             <span>
-                4%
-                {/* percentage change goes here */}
+              4%
+              {/* percentage change goes here */}
             </span>
-            <span>
-                vs last 24h
-            </span>
+            <span>vs last 27s</span>
           </div>
         </div>
         <div className="current-state">
-            good
-            {/* current state goes here */}
+          good
+          {/* current state goes here */}
         </div>
       </div>
       <div className="card">
         <div className="card-head">
-          <img src={reactLogo} alt="tailings logo" />
+          <img src={tailingsIcon} alt="" />
           <p>Tailings</p>
         </div>
         <div>
           <div className="quantity">
-            {data ? `${data.tailingsGrade}` : 'loading...'} <span>g/t</span>
+            {data ? `${data.tailingsGrade}` : "loading..."} <span>g/t</span>
           </div>
           <div className="percentage-change">
             <span>
-                2%
-                {/* percentage change goes here */}
+              2%
+              {/* percentage change goes here */}
             </span>
-            <span>
-                vs last 24h
-            </span>
+            <span>vs last 27s</span>
           </div>
         </div>
         <div className="current-state">
-            off
-            {/* current state goes here */}
+          off
+          {/* current state goes here */}
         </div>
       </div>
       <div className="card">
         <div className="card-head">
-          <img src={reactLogo} alt="powerUseage logo" />
+          <img src={powerIcon} alt="" />
           <p>Power</p>
         </div>
         <div>
           <div className="quantity">
-            {data ? `${data.powerUsage}`  : 'loading...'} <span>Mwh</span>
+            {data ? `${data.powerUsage}` : "loading..."} <span>Mwh</span>
           </div>
           <div className="percentage-change">
             <span>
-                5%
-                {/* percentage change goes here */}
+              5%
+              {/* percentage change goes here */}
             </span>
-            <span>
-                vs last 24h
-            </span>
+            <span>vs last 27s</span>
           </div>
         </div>
         <div className="current-state">
-            on target
-            {/* current state goes here */}
+          on target
+          {/* current state goes here */}
         </div>
       </div>
     </div>

@@ -56,24 +56,31 @@ app.get('/api/plant/live', (req, res) => {
   const data = readData();
 
   // Create small random variations to simulate a real plant
+  function getRandomFloat(min, max) {
+
+    return Math.random() * (max - min) + min
+  }
+
+
   const variation = () => (Math.random() - 0.5) * 2; // -1 to +1
 
-  const liveData = {
+
+  const liveData = [{
     ...data.current,
     timestamp: new Date().toISOString(),
-    throughput: Number((data.current.throughput + variation() * 15).toFixed(1)),
-    recovery: Number((data.current.recovery + variation() * 0.4).toFixed(2)),
-    headGrade: Number((data.current.headGrade + variation() * 0.05).toFixed(2)),
-    tailingsGrade: Number((data.current.tailingsGrade + variation() * 0.02).toFixed(3)),
+    throughput: Number(getRandomFloat(950, 1050).toFixed(1)),
+    recovery: Number(getRandomFloat(89, 91).toFixed(2)),
+    headGrade: Number(getRandomFloat(1.65, 1.90).toFixed(2)),
+    tailingsGrade: Number(getRandomFloat(0.30, 0.25).toFixed(3)),
     reagentConsumption: Number((data.current.reagentConsumption + variation() * 5).toFixed(1)),
-    powerUsage: Number((data.current.powerUsage + variation() * 0.3).toFixed(2)),
+    powerUsage: Number(getRandomFloat(210, 170).toFixed(2)),
     pH: Number((data.current.pH + variation() * 0.1).toFixed(2))
-  };
+  }];
 
- 
-    res.json(liveData);
-  
-  
+
+  res.json(liveData[0]);
+
+
 });
 
 app.listen(PORT, () => {
