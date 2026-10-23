@@ -22,6 +22,7 @@ ChartJS.register(
 );
 
 defaults.aspectRatio = false;
+defaults.maintainAspectRatio = false;
 defaults.responsive = true;
 
 // // defaults.plugins.title.display = true;
